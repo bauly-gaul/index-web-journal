@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麻将胡了 · 简明指南与访问提醒</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f7f8fa;
+            line-height: 1.6;
+            color: #1e2024;
+        }
+
+        /* 顶部导航 */
+        .nav-bar {
+            background: #0b0e14;
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+        .nav-logo {
+            color: #e5e9f0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        .nav-links a {
+            color: #b0b8c8;
+            margin-left: 2rem;
+            text-decoration: none;
+            font-size: 0.92rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #d6a35a;
+        }
+
+        /* 深色头图 hero */
+        .hero {
+            background: linear-gradient(145deg, #11161f 0%, #1f2937 100%);
+            padding: 5rem 2rem 4rem 2rem;
+            text-align: center;
+            color: #eef2f6;
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        /* 通用容器 */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* 浅色正文区 */
+        .section {
+            background: #ffffff;
+            padding: 3.5rem 0;
+            margin-top: 0.5rem;
+            border-radius: 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .section-intro {
+            padding-top: 2.5rem;
+        }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.8rem;
+            color: #0f141c;
+            border-left: 5px solid #d6a35a;
+            padding-left: 1rem;
+        }
+
+        /* 三场景卡片 */
+        .scenes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+        .scene-card {
+            background: #f8f9fc;
+            border-radius: 16px;
+            padding: 1.8rem 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border: 1px solid #eaedf2;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .scene-card:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transform: translateY(-3px);
+        }
+        .scene-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #1f2937;
+        }
+        .scene-card h3 span {
+            background: #d6a35a;
+            color: #0f141c;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+        .scene-card p {
+            color: #3f4858;
+            font-size: 0.95rem;
+        }
+
+        /* 强调色链接 */
+        .accent-link {
+            color: #b8863b;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: rgba(184, 134, 59, 0.3);
+            font-weight: 500;
+            transition: color 0.2s, text-decoration-color 0.2s;
+        }
+        .accent-link:hover {
+            color: #8f6728;
+            text-decoration-color: #8f6728;
+        }
+
+        /* 常见说明卡片 */
+        .faq-block {
+            background: #f1f3f7;
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            margin: 2.2rem 0 0.5rem 0;
+        }
+        .faq-item {
+            margin-bottom: 1.5rem;
+        }
+        .faq-item:last-child {
+            margin-bottom: 0;
+        }
+        .faq-q {
+            font-weight: 600;
+            color: #12171f;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .faq-q::before {
+            content: "▹";
+            color: #d6a35a;
+            margin-right: 0.6rem;
+            font-size: 1.1rem;
+        }
+        .faq-a {
+            color: #374151;
+            padding-left: 1.7rem;
+            font-size: 0.95rem;
+        }
+
+        /* 引导提示条 */
+        .tip-banner {
+            background: #eef2f6;
+            border-left: 6px solid #d6a35a;
+            padding: 1.2rem 1.8rem;
+            border-radius: 12px;
+            margin: 2rem 0 0.5rem 0;
+            font-size: 0.98rem;
+            color: #1d232e;
+        }
+
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .scenes-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero h1 {
+                font-size: 2.1rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .scenes-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links a {
+                margin-left: 1.2rem;
+                font-size: 0.85rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .faq-block {
+                padding: 1.5rem 1.2rem;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #6b7280;
+            font-size: 0.85rem;
+            background: #ffffff;
+            border-top: 1px solid #e5e9ef;
+            margin-top: 0.5rem;
+        }
+        footer a {
+            color: #b8863b;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-logo">MJHL</div>
+    <div class="nav-links">
+        <a href="#guide">简明指南</a>
+        <a href="#scenes">常见场景</a>
+        <a href="#faq">常见说明</a>
+        <a href="https://cn-mjhl.com" style="color:#d6a35a;">麻将胡了</a>
+    </div>
+</nav>
+
+<!-- hero 深色头图 -->
+<section class="hero">
+    <h1>麻将胡了 · 简明指南</h1>
+    <p>快速了解基础规则、经典变种与常见提醒。无论你刚接触还是想重温要点，这里提供一份清晰、简洁的参考。</p>
+</section>
+
+<!-- 核心介绍 + 场景模块 -->
+<section class="section section-intro" id="guide">
+    <div class="container">
+        <h2 class="section-title">核心介绍 · 从规则到实战</h2>
+        <p style="margin-bottom:1.2rem; font-size:1rem;">
+            <strong>麻将胡了</strong> 是集策略与运气于一体的经典牌戏，不同地区衍生出风格各异的玩法。核心目标始终如一：更早达成合法胡牌牌型。一副标准手牌包含 136 或 144 张牌，通过吃、碰、杠与自摸构建和牌面。你可以在 <a href="https://cn-mjhl.com" class="accent-link">麻将胡了</a> 平台查阅各地区详细番种表与计分规则，以便快速适应不同牌局。
+        </p>
+        <p style="font-size:0.95rem; color:#374151;">
+            对新手而言，先掌握基本胡牌公式（如平胡、对对胡、七对）是最有效的一步。高手则更关注防守、牌效与听牌优化。所有进阶技巧都建立在对基础规则的扎实理解上。
+        </p>
+
+        <!-- 三个场景模块 -->
+        <div class="scenes-grid" id="scenes">
+            <div class="scene-card">
+                <h3>日常休闲局 <span>朋友</span></h3>
+                <p>四人一桌，以娱乐为主。约定好底分与封顶，<strong>麻将胡了</strong> 的通用规则稍加调整即可适配。建议提前确认是否允许吃牌、抢杠与十三幺等特殊牌型。</p>
+            </div>
+            <div class="scene-card">
+                <h3>线上速配赛 <span>快节奏</span></h3>
+                <p>不少在线平台提供 3~5 分钟的快棋式比赛。熟悉 <a href="https://cn-mjhl.com" class="accent-link">麻将胡了</a> 的基础番种能帮助你快速决策，避免超时。线上环境更注重牌感和节奏。</p>
+            </div>
+            <div class="scene-card">
+                <h3>竞技邀请赛 <span>进阶</span></h3>
+                <p>采用标准竞技规则，禁用部分花牌、限制暗杠次数。参与前建议系统学习过 <strong>麻将胡了</strong> 的竞赛版规则。心态与牌理并重，防守意识往往决定名次。</p>
+            </div>
+        </div>
+
+        <!-- 访问提醒 + 提示条 -->
+        <div class="tip-banner">
+            <strong>访问提醒：</strong> 当你前往 <a href="https://cn-mjhl.com" class="accent-link">麻将胡了</a> 页面时，请留意通知公告与版本更新。部分平台会定期调整番种权重或禁止特殊牌型，进入牌局前建议快速浏览当季规则补充。
+        </div>
+    </div>
+</section>
+
+<!-- 常见说明 FAQ 摘要 -->
+<section class="section" id="faq">
+    <div class="container">
+        <h2 class="section-title">常见说明 · 快速答疑</h2>
+        <div class="faq-block">
+            <div class="faq-item">
+                <div class="faq-q">不同地区规则冲突怎么办？</div>
+                <div class="faq-a">开局前务必统一规则基准。一般以 <strong>麻将胡了</strong> 平台公示的通用条款为基础，再补充本地特有规定（如：是否带风、番种封顶等）。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">自摸与点炮的计分差异</div>
+                <div class="faq-a">多数玩法里自摸赢取三家分数总和，而点炮只由放炮者支付。但部分变体规定自摸只收 1.5 倍或统一底注。细节请查阅你当前所玩版本说明。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">听牌后能否改听？</div>
+                <div class="faq-a">常规规则允许改听，但有些竞赛模式或线上房规禁止二次换听。建议在 <a href="https://cn-mjhl.com" class="accent-link">麻将胡了</a> 的规则板块搜索「听牌限制」查看详细条文。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">番种表太复杂如何记忆？</div>
+                <div class="faq-a">优先掌握 10 个核心番种（如平和、清一色、七对、碰碰胡等），大部分牌局覆盖率达 80% 以上。后续通过实战逐步扩展，无需死记硬背。</div>
+            </div>
+        </div>
+        <p style="margin-top:2rem; font-size:0.9rem; color:#6b7280; text-align:right;">
+            * FAQ 仅作通用参考，具体以对应规则文档为准。
+        </p>
+    </div>
+</section>
+
+<footer>
+    <p>页面内容仅供简明参考 · 更多细节请访问 <a href="https://cn-mjhl.com">麻将胡了</a></p>
+</footer>
+
+</body>
+</html>
